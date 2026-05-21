@@ -1,0 +1,11 @@
+/target/
+/.maven/
+/*.log
+.idea/
+*.class
+*.jar
+*.war
+*.ear
+*.tar.gz
+*.zip
+.DS_Store

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Vedic Academy Workspace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+            --background: #0b0f19;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --glass-bg: rgba(30, 41, 59, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --shadow: 0 16px 36px 0 rgba(0, 0, 0, 0.5);
+            --error: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--background);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(139, 92, 246, 0.12) 0px, transparent 40%),
+                radial-gradient(at 90% 80%, rgba(59, 130, 246, 0.12) 0px, transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            overflow-x: hidden;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+            padding: 3rem 2.5rem;
+            border-radius: 28px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-box {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header-box .icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .header-box h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-box p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-top: 0.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .eye-toggle {
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eye-toggle:hover {
+            color: var(--text-main);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.45);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Demo credentials helper box */
+        .demo-box {
+            width: 100%;
+            max-width: 440px;
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            border-radius: 18px;
+            background: rgba(30, 41, 59, 0.25);
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        .demo-box h4 {
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .demo-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .demo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 0.4rem 0.75rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .demo-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.2);
+            color: var(--text-main);
+        }
+
+        .demo-item span.role {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .demo-item span.creds {
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            background: #1e293b;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border-left: 5px solid var(--primary);
+            transform: translateY(150%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        .toast.error {
+            border-left-color: var(--error);
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="header-box">
+            <span class="icon">🎓</span>
+            <h2>Vedic Academy</h2>
+            <p>Sign in to access your dashboard</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <input type="text" id="username" placeholder="Enter username" required autocomplete="username">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
+                    <button type="button" class="eye-toggle" id="togglePassword">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Sign In</button>
+        </form>
+    </div>
+
+    <!-- Seeder account helpers -->
+    <div class="demo-box">
+        <h4>🔐 Quick Demo Account Chooser <span>(Click to Fill)</span></h4>
+        <ul class="demo-list">
+            <li class="demo-item" onclick="fillCreds('admin', 'admin123')">
+                <span class="role" style="color: #f59e0b;">Admin</span>
+                <span class="creds">admin / admin123</span>
+            </li>
+            <li class="demo-item" onclick="fillCreds('teacher1', 'teacher123')">
+                <span class="role" style="color: #10b981;">Teacher</span>
+                <span class="creds">teacher1 / teacher123</span>
+            </li>
+            <li class="demo-item" onclick="fillCreds('student1', 'student123')">
+                <span class="role" style="color: #3b82f6;">Student</span>
+                <span class="creds">student1 / student123</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Dynamic Toast Element -->
+    <div class="toast" id="toast">
+        <span id="toastIcon">💡</span>
+        <span id="toastMsg">Notification message</span>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const submitBtn = document.getElementById('submitBtn');
+        const togglePassword = document.getElementById('togglePassword');
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toastMsg');
+        const toastIcon = document.getElementById('toastIcon');
+
+        // Toggle password show/hide
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.textContent = type === 'password' ? '👁️' : '🔒';
+        });
+
+        // Quick demo login fill
+        function fillCreds(u, p) {
+            usernameInput.value = u;
+            passwordInput.value = p;
+            showToast("Credentials filled! Click 'Sign In'.", "success", "💡");
+        }
+
+        // Custom notification toast
+        function showToast(msg, type = "info", icon = "💡") {
+            toastMsg.textContent = msg;
+            toastIcon.textContent = icon;
+            
+            toast.className = "toast show";
+            if (type === "error") toast.classList.add('error');
+            if (type === "success") toast.classList.add('success');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Form submit handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!username || !password) {
+                showToast("Please enter username and password", "error", "⚠️");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Verifying credentials...";
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showToast("Login Successful! Preparing workspace...", "success", "✅");
+                    
+                    // Save user credentials in localstorage for SPA routing/permissions
+                    localStorage.setItem('currentUser', JSON.stringify(data));
+                    
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 800);
+                } else {
+                    showToast(data.message || "Invalid username or password", "error", "❌");
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Sign In";
+                }
+            } catch (err) {
+                console.error("Network Error:", err);
+                showToast("Server connection failed. Make sure Spring Boot is running.", "error", "📡");
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Sign In";
+            }
+        });
+    </script>
+</body>
+</html>
