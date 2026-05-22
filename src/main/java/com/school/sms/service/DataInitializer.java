@@ -78,12 +78,11 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
         userRepository.save(teacher2);
 
-        // Seed classes dynamically
+        // Seed classes dynamically (Optimized for cloud database network latency)
         String[] classNames = {
-            "LKG", "UKG", "Class 1", "Class 2", "Class 3", "Class 4", "Class 5",
-            "Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"
+            "LKG", "UKG", "Class 1", "Class 5", "Class 10", "Class 12"
         };
-        String[] sections = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
+        String[] sections = {"A", "B"};
 
         // Create Section A to K for all classes
         for (String className : classNames) {
