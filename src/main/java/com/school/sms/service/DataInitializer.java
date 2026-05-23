@@ -80,9 +80,10 @@ public class DataInitializer implements CommandLineRunner {
 
         // Seed classes dynamically (Optimized for cloud database network latency)
         String[] classNames = {
-            "LKG", "UKG", "Class 1", "Class 5", "Class 10", "Class 12"
+            "LKG", "UKG", "Class 1", "Class 2", "Class 3", "Class 4", "Class 5",
+            "Class 6", "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"
         };
-        String[] sections = {"A", "B"};
+        String[] sections = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"};
 
         // Create Section A to K for all classes
         for (String className : classNames) {
@@ -244,7 +245,7 @@ public class DataInitializer implements CommandLineRunner {
                     feeRepository.save(Fee.builder().student(s4).academicYear("2026").totalAmount(35000.0).paidAmount(10000.0).dueDate("2026-06-30").status("PARTIAL").build());
                     feeRepository.save(Fee.builder().student(s5).academicYear("2026").totalAmount(35000.0).paidAmount(0.0).dueDate("2026-06-30").status("UNPAID").build());
 
-                } else {
+                } else if (sec.equals("A")) {
                     // Seed 2 students dynamically for other classes/sections
                     String prefix = className.replace("Class ", "C").replace("Grade", "G").replace(" ", "");
                     String sectionPrefix = prefix + sec;
